@@ -1,14 +1,19 @@
 <div class="row">
 	<div class="col-6">
 				<?php $malayID = false; ?>
+				<?php $isID = false; ?>
 		<ol>
 
 			<?php foreach ($web->entities() as $entity): ?>
 					<?php if (!empty($entity->info()['description'])): ?>
 						<?php
-							$isMalayId = $entity->info()['description'];
+							$description = $entity->info()['description'];
 
-							if (strpos(strtolower($isMalayId), 'malaysia') !== false) {
+							if (strpos(strtolower($description), 'identity') !== false) {
+							    $isID = 1;
+							}
+
+							if (strpos(strtolower($description), 'malaysia') !== false) {
 							    $malayID = 1;
 							}
 						?>
@@ -22,6 +27,11 @@
 	</div>
 	<div class="col-lg-6">
 		<div>
+			<?php if($isID == 1):?>
+			<h4>IS ID CARD ? </h4><h4 style="color: green;">YES</h4>
+			<?php else:?>
+			<h4>IS ID CARD ? </h4><h4 style="color: red;">NO</h4>
+			<?php endif;?>
 			<?php if($malayID == 1):?>
 			<h4>IS MALAYSIAN ID CARD ? </h4><h4 style="color: green;">YES</h4>
 			<?php else:?>
