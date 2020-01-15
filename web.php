@@ -1,11 +1,17 @@
 <div class="row">
-	<div class="col-12">
-		<h5>Entities</h5>
-		<hr>
+	<div class="col-6">
+				<?php $malayID = false; ?>
 		<ol>
 
 			<?php foreach ($web->entities() as $entity): ?>
 					<?php if (!empty($entity->info()['description'])): ?>
+						<?php
+							$isMalayId = $entity->info()['description'];
+
+							if (strpos(strtolower($isMalayId), 'malaysia') !== false) {
+							    $malayID = 1;
+							}
+						?>
 				<li>
 					<h6><?php echo ucfirst($entity->info()['description']) ?></h6>
 
@@ -14,6 +20,16 @@
 			<?php endforeach ?>
 		</ol>
 	</div>
+	<div class="col-lg-6">
+		<div>
+			<?php if($malayID == 1):?>
+			<h4>IS MALAYSIAN ID CARD ? </h4><h4 style="color: green;">YES</h4>
+			<?php else:?>
+			<h4>IS MALAYSIAN ID CARD ? </h4><h4 style="color: red;">NO</h4>
+			<?php endif;?>
+		</div>
+	</div>
+	<hr>
 </div>
 <div class="row">
 	<div class="col-12">

@@ -13,7 +13,7 @@ $vision = new VisionClient(['keyFile' => json_decode(file_get_contents("key.json
 $familyPhotoSource = fopen($_FILES['image']['tmp_name'], 'r');
 
 $image = $vision->image($familyPhotoSource, 
-	['FACE_DETECTION', 'WEB_DETECTION', 'LABEL_DETECTION', 'IMAGE_PROPERTIES','SAFE_SEARCH_DETECTION', 'LANDMARK_DETECTION', 'LOGO_DETECTION']);
+	['FACE_DETECTION', 'WEB_DETECTION', 'LABEL_DETECTION', 'IMAGE_PROPERTIES','SAFE_SEARCH_DETECTION', 'LANDMARK_DETECTION', 'LOGO_DETECTION','DOCUMENT_TEXT_DETECTION']);
 
 $result = $vision->annotate($image);
 
@@ -72,8 +72,8 @@ $landmarks  = $result->landmarks();
 		<div class="row">
 			<div class="col-md-12" style="margin: auto; background: white; padding: 20px; box-shadow: 10px 10px 5px #888;">
 				<div class="panel-heading">
-					<h2><a href="/learning/gcloud/index.php">Google Cloud Vision API</a></h2>
-					<p style="font-style: italic">Google Machine Learning</p>
+					<h2><a href="/learning/gcloud-vision/index.php">Google Cloud Vision API</a></h2>
+					<p style="font-style: italic">By. Andri Wicaksono</p>
 				</div>
 				<hr>
 				<div class="row">
@@ -91,13 +91,16 @@ $landmarks  = $result->landmarks();
 					<div class="col-md-10 border" style="padding: 10px;">
 						<ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
 							<li class="nav-item">
-								<a href="#pills-face" role="tab" class="nav-link active" id="pills-face-tab" data-toggle="pill" aria-controls="pills-face" aria-selected="true">Faces</a>
+								<a href="#pills-web" role="tab" class="nav-link active" id="pills-web-tab" data-toggle="pill" aria-controls="pills-web" aria-selected="true">Web</a>
+							</li>
+							<li class="nav-item">
+								<a href="#pills-text" role="tab" class="nav-link" id="pills-text-tab" data-toggle="pill" aria-controls="pills-text" aria-selected="true">Text</a>
+							</li>
+							<li class="nav-item">
+								<a href="#pills-face" role="tab" class="nav-link" id="pills-face-tab" data-toggle="pill" aria-controls="pills-face" aria-selected="true">Faces</a>
 							</li>
 							<li class="nav-item">
 								<a href="#pills-labels" role="tab" class="nav-link" id="pills-labels-tab" data-toggle="pill" aria-controls="pills-labels" aria-selected="true">Labels</a>
-							</li>
-							<li class="nav-item">
-								<a href="#pills-web" role="tab" class="nav-link" id="pills-web-tab" data-toggle="pill" aria-controls="pills-web" aria-selected="true">Web</a>
 							</li>
 							<li class="nav-item">
 								<a href="#pills-properties" role="tab" class="nav-link" id="pills-properties-tab" data-toggle="pill" aria-controls="pills-properties" aria-selected="true">Properties</a>
@@ -115,7 +118,24 @@ $landmarks  = $result->landmarks();
 						<hr>
 						<div class="tab-content" id="pills-tabContent">
 
-							<div class="tab-pane fade show active" id="pills-face" role="tabpanel" aria-labelledby="pills-face-tab">
+							<div class="tab-pane fade show active" id="pills-web" role="tabpanel" aria-labelledby="pills-web-tab">
+								<div class="row">
+									<div class="col-12">
+										<?php include "web.php" ?>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane fade show" id="pills-text" role="tabpanel" aria-labelledby="pills-text-tab">
+								<div class="row">
+									<div class="col-12">
+										<?php include "text.php" ?>
+									</div>
+								</div>
+								
+							</div>
+
+							<div class="tab-pane fade show" id="pills-face" role="tabpanel" aria-labelledby="pills-face-tab">
 								<div class="row">
 									<div class="col-12">
 										<?php include "faces.php" ?>
@@ -130,13 +150,6 @@ $landmarks  = $result->landmarks();
 									</div>
 								</div>
 								
-							</div>
-							<div class="tab-pane fade show" id="pills-web" role="tabpanel" aria-labelledby="pills-web-tab">
-								<div class="row">
-									<div class="col-12">
-										<?php include "web.php" ?>
-									</div>
-								</div>
 							</div>
 							<div class="tab-pane fade show" id="pills-properties" role="tabpanel" aria-labelledby="pills-properties-tab">
 								<div class="row">
